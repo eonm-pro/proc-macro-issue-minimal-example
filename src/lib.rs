@@ -2,8 +2,8 @@ use proc_macro::TokenStream;
 use syn::{parse_macro_input, DeriveInput, parse::Parser};
 use quote::quote;
 
-#[proc_macro_derive(AddField, attributes(unimarc))]
-pub fn derive(input: TokenStream) -> TokenStream {
+#[proc_macro_attribute]
+pub fn add_field(_args: TokenStream, input: TokenStream) -> TokenStream  {
     let mut ast = parse_macro_input!(input as DeriveInput);
     match &mut ast.data {
         syn::Data::Struct(ref mut struct_data) => {           
@@ -20,15 +20,9 @@ pub fn derive(input: TokenStream) -> TokenStream {
             
             // I tried
             // 
-            // return quote! {
-            //     #ast
-            // }.into();
-            //
-            // But it fails with error :  `Foo` redefined here previous definition of the type `Foo` here
-            //
-            // So instead I return an empty TokenStream
-
-            TokenStream::new()
+            return quote! {
+                #ast
+            }.into();
         }
         _ => panic!("AddField has to be used with structs "),
     }
