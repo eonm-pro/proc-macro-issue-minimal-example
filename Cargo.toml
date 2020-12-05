@@ -14,4 +14,4 @@ proc-macro = true
 [dependencies]
 
 quote = "1.0.7"
-syn = {version = "1.0.52", features = ["full"]}
+syn = {version = "1.0.52", features = ["full", "extra-traits"]}
